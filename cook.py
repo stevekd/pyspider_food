@@ -32,6 +32,9 @@ class Handler(BaseHandler):
         for each in response.doc('body > div.page-outer > div > div > div.pure-u-2-3.main-panel > div.white-bg.block > div > div.pure-u-3-4.category-recipe-list > div.normal-recipe-list > ul > li > div > div > p.name > a').items():
             print (each)
             self.crawl(each.attr.href,callback=self.detail_page)
+	#分页
+	for each in response.doc('body > div.page-outer > div > div > div.pure-u-2-3.main-panel > div.white-bg.block > div > div.pure-u-3-4.category-recipe-list > div.pager > a.next').items():
+	    self.crawl(each.attr.href,callback=self.list_page)
    
     @config(priority=2)
     def detail_page(self, response):
